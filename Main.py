@@ -9,14 +9,6 @@ humidity_topic = "paho/Zach/Humidity"
 
 
 def on_connect(client, userdata, flags, rc):
-    """
-    Callback function called when the client connects to the broker.
-
-    :param client: The client instance for this callback.
-    :param userdata: The private user data as set in Client() or passed to user_data_set().
-    :param flags: Response flags sent by the broker.
-    :param rc: The connection result code.
-    """
     print("Connecté avec le code : " + str(rc))
     # Abonnement aux topics
     client.subscribe(temperature_topic, qos=0)
@@ -24,17 +16,6 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
-    """
-    Callback function called when a PUBLISH message is received from the broker.
-
-    :param client: The client instance for this callback.
-    :param userdata: The private user data as set in Client() or passed to user_data_set().
-    :param msg: An instance of MQTTMessage. This is a class with members:
-                - payload: The message payload (byte array)
-                - topic: The topic of the message
-                - qos: The QoS level of the message
-                - retain: Boolean flag indicating if the message is retained
-    """
     # Traitement des messages reçus
     if msg.topic == temperature_topic:
         print(f"Température reçue : {msg.payload.decode()}")
